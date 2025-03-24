@@ -25,6 +25,7 @@ interface GetDentists{
     data:{
         id:string,
         name:string,
+        image:string,
         yearsOfExperience:number,
         areaOfExpertise:string,
         bookingPerDay:number
