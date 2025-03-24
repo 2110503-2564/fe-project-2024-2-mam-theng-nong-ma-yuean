@@ -2,7 +2,7 @@ import getUserProfile from "@/libs/getUserProfile";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import getDentists from "@/libs/getDentists";
-import Card from "./Card";
+import FilterInput from "./FilterInput";
 
 export default async function DentistPanel() {
     // get session data
@@ -11,25 +11,13 @@ export default async function DentistPanel() {
     let profile = null;
 
     if(session){
-        //console.log(session)
         profile = await getUserProfile(session.user.token);    
     }
 
     // Filter
     return(
-        <div>
-            <div className="m-[20px] flex flex-row flex-wrap justify-around content-around">
-            {
-                dentists.data.map((dentist)=>{
-                    //console.log(dentist)
-                    return (
-                    <div key={dentist.id}>
-                        <Card dentistName={dentist.name} imgSrc={dentist.image} role={(profile as UserProfile)?.data.role} id={dentist.id}/>
-                    </div>
-                    );
-                })
-            }
-            </div>
+        <div className="h-[50%] mt-[75px] mx-10">
+            <FilterInput dentists={dentists} profile={profile}/>
         </div>
 
     );
