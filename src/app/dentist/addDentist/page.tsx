@@ -40,7 +40,7 @@ export default async function addDentist() {
 
     return (
         <main className="relative min-h-screen bg-blue-50">
-            <div className="absolute top-6 right-6 text-right bg-white p-4 rounded-xl shadow-xl border border-blue-300">
+            <div className="absolute top-14 right-6 text-right bg-white p-4 rounded-xl shadow-xl border border-blue-300">
                 <div className="text-3xl font-bold mb-2 text-blue-700">{profile.data.name}</div>
                 <div className="text-base mb-1 text-gray-700">📧 {profile.data.email}</div>
                 <div className="text-base mb-1 text-gray-700">📞 {profile.data.tel}</div>
@@ -48,7 +48,7 @@ export default async function addDentist() {
             </div>
             <div className="flex items-center justify-center h-screen">
                 <form className="bg-white p-8 rounded-xl shadow-lg w-full max-w-lg border border-blue-300 space-y-4"action={ add }>
-                    <h2 className="text-3xl font-bold mb-4 text-center text-blue-700">Add Dentist</h2>
+                    <h2 className="text-3xl font-bold mb-4 text-center text-blue-700">Add New Dentist</h2>
                     <div>
                         <label className="block text-gray-700 mb-2">Name <span className="text-red-500">*</span></label>
                         <input
@@ -106,7 +106,7 @@ export default async function addDentist() {
                         type="submit"
                         className="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition-colors"
                     >
-                        Submit
+                        Add Dentist
                     </button>
                 </form>
             </div>
