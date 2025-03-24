@@ -5,7 +5,7 @@ export default function Banner(){
             <div className="ml-[10%] mt-[100px] text-black">
                 <div className="font-bold text-5xl">
                     <div>Find and Book</div>
-                    <div>Dentist, <div className = "inline text-blue-500">Easily</div></div>
+                    <div>Dentist, <div className = "inline text-purple-700">Easily</div></div>
                 </div>
 
                 <div className="mt-5 text-sm font-normal">

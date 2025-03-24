@@ -24,7 +24,7 @@ export default async function RootLayout({
     <html lang="en">
       <NextAuthProvider session={nextAuthSession}>
       <body className={inter.className}>
-        <TopMenu/>
+          <TopMenu/>
         {children}
       </body>
       </NextAuthProvider>

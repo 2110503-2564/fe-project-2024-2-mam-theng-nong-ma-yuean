@@ -15,14 +15,15 @@ export default async function TopMenu(){
     }
     
     return(
-        <div className="h-[50px] bg-gray-400 fixed top-0 left-[0px] right-[0px] z-30 border-b-[1px] border-b-soild border-b-gray-300 flex flex-row justify-between">
+        <div className="h-24 bg-purple-400 fixed top-0 w-full z-30 border-b-[1px] border-b-soild border-b-gray-300 flex flex-row justify-between">
             <div className='flex flex-row ml-5'>
                 <TopMenuItem title='Home' pageRef='/'/>
                 <TopMenuItem title='Booking' pageRef='/booking/'/>
             </div>
             <div className='mx-7 flex items-center h-full text-black'>
-                <button className='p-1 px-4 bg-white rounded-lg hover:bg-gray-200'>
-                    {
+            <button className="relative inline-flex items-center justify-center text-white text-lg font-medium rounded-lg shadow-lg bg-gradient-to-r transition-all duration-300 ease-in-out hover:scale-105 active:scale-90">
+                <span className="bg-[#05062d] px-6 py-4 rounded-md w-full h-full transition-all duration-300 ease-in-out">
+                {
                     session? 
                     <Link href="/api/auth/signout">
                         <div>
@@ -35,7 +36,8 @@ export default async function TopMenu(){
                         </div>
                     </Link>
                 }
-                </button>
+                </span>
+            </button>
             </div>
 
 

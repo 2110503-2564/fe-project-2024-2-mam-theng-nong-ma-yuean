@@ -4,7 +4,7 @@ import Card from "./Card";
 import { useReducer, useRef, useState } from "react";
 import Link from "next/link";
 
-export default function FilterInput({dentists, profile}:{dentists:GetDentists, profile:UserProfile}){
+export default function FilterInput({dentists, profile}:{dentists:GetDentists, profile:UserProfile|null}){
 
     function filterReducer(filter:GetDentists, filterText:string){
         let newFilter:GetDentists = {
@@ -23,19 +23,19 @@ export default function FilterInput({dentists, profile}:{dentists:GetDentists, p
     return(
         <div className="relative">
             <div className="relative inline mx-5">
-                <input type="text" className="p-1 pr-7 rounded" placeholder="Search for dentist's name"
+                <input type="text" className="ml-16 p-2 pr-36 rounded" placeholder="Search for dentist's name"
                 onChange={(e)=>{filterText.current = e.target.value}}/>
                 <button className="aspect-square h-full absolute right-1 top-0" 
                 onClick={()=>{filterDispatch(filterText.current)}}>
                     <Image src={"/img/search.png"} alt="search" fill={true}/>
                 </button>
             </div>
-            <div className="m-[20px] flex flex-row flex-wrap space-x-10 content-around mt-[50px]">
+            <div className="p-8 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 justify-center">
             {
                 filter.data.map((dentist)=>{
                     return (
-                    <div key={dentist.id}>
-                        <Card dentistName={dentist.name} imgSrc={dentist.image} role={profile?.data.role} id={dentist.id}/>
+                    <div key={dentist.id} className="flex justify-center my-8">
+                        <Card dentistName={dentist.name} imgSrc={dentist.image} role={profile? profile.data.role:null} id={dentist.id}/>
                     </div>
                     );
                 })
