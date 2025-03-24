@@ -8,7 +8,7 @@ export default async function DentistPanel() {
     // get session data
     const dentists:GetDentists = await getDentists();
     const session = await getServerSession(authOptions);
-    let profile = null;
+    let profile;
 
     if(session){
         profile = await getUserProfile(session.user.token);    
@@ -17,7 +17,7 @@ export default async function DentistPanel() {
     // Filter
     return(
         <div className="h-[50%] mt-[75px] mx-10">
-            <FilterInput dentists={dentists} profile={profile}/>
+            <FilterInput dentists={dentists} profile={profile? profile:null}/>
         </div>
 
     );

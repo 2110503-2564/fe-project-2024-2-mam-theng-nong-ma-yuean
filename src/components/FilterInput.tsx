@@ -4,7 +4,7 @@ import Card from "./Card";
 import { useReducer, useRef, useState } from "react";
 import Link from "next/link";
 
-export default function FilterInput({dentists, profile}:{dentists:GetDentists, profile:UserProfile}){
+export default function FilterInput({dentists, profile}:{dentists:GetDentists, profile:UserProfile|null}){
 
     function filterReducer(filter:GetDentists, filterText:string){
         let newFilter:GetDentists = {
@@ -30,12 +30,12 @@ export default function FilterInput({dentists, profile}:{dentists:GetDentists, p
                     <Image src={"/img/search.png"} alt="search" fill={true}/>
                 </button>
             </div>
-            <div className="m-[20px] flex flex-row flex-wrap space-x-10 content-around mt-[50px]">
+            <div className="m-[20px] grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mt-[50px]">
             {
                 filter.data.map((dentist)=>{
                     return (
                     <div key={dentist.id}>
-                        <Card dentistName={dentist.name} imgSrc={dentist.image} role={profile?.data.role} id={dentist.id}/>
+                        <Card dentistName={dentist.name} imgSrc={dentist.image} role={profile? profile.data.role:null} id={dentist.id}/>
                     </div>
                     );
                 })
