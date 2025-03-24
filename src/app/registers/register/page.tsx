@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import userRegister from "@/libs/userRegister";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -15,15 +16,9 @@ export default function RegisterPage() {
     e.preventDefault();
     setError("");
 
-    const res = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, tel, email, password }),
-    });
+    const data = await userRegister(name, tel, email, password);
 
-    const data = await res.json();
-
-    if (res.ok) {
+    if (data) {
       router.push("/api/auth/signin");
     } else {
       setError(data.error || "Registration failed");

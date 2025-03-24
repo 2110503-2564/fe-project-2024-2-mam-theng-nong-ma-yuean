@@ -21,7 +21,7 @@ export default function Card({dentistName, imgSrc, role, id}:{dentistName:string
             </Link>
             {
                 role == "admin"? 
-                <Link href={`/adjust/${id}`}>
+                <Link href={`/dentist/editDentist/${id}`}>
                     <button className='absolute right-0 top-0 m-2 text-sm 
                     rounded p-1 px-4 bg-yellow-200 hover:bg-yellow-300'>
                         Edit
