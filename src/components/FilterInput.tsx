@@ -35,15 +35,19 @@ export default function FilterInput({dentists, profile}:{dentists:GetDentists, p
                 filter.data.map((dentist)=>{
                     return (
                     <div key={dentist.id}>
-                        <Card dentistName={dentist.name} imgSrc={dentist.image} role={profile.data.role} id={dentist.id}/>
+                        <Card dentistName={dentist.name} imgSrc={dentist.image} role={profile?.data.role} id={dentist.id}/>
                     </div>
                     );
                 })
             }
             </div>
-            <Link href={"/adddentist"}>
-            <button className="bg-green-200 hover:bg-green-300 rounded-lg p-1 px-5 absolute top-0 right-1">Add</button>
-            </Link>
+            {
+                profile?.data.role == "admin"?
+                <Link href={"/adddentist"}>
+                    <button className="bg-green-200 hover:bg-green-300 rounded-lg p-1 px-5 absolute top-0 right-1">Add</button>
+                </Link>:null
+            }
+
             
         </div>
 
