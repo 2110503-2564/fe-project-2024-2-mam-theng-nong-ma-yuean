@@ -21,7 +21,7 @@ export default function FilterInput({dentists, profile}:{dentists:GetDentists, p
     const filterText = useRef("");
 
     return(
-        <div>
+        <div className="relative">
             <div className="relative inline mx-5">
                 <input type="text" className="p-1 pr-7 rounded" placeholder="Search for dentist's name"
                 onChange={(e)=>{filterText.current = e.target.value}}/>
@@ -41,6 +41,10 @@ export default function FilterInput({dentists, profile}:{dentists:GetDentists, p
                 })
             }
             </div>
+            <Link href={"/adddentist"}>
+            <button className="bg-green-200 hover:bg-green-300 rounded-lg p-1 px-5 absolute top-0 right-1">Add</button>
+            </Link>
+            
         </div>
 
     );
