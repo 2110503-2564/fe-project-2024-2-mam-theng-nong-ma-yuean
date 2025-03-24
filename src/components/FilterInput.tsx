@@ -43,7 +43,7 @@ export default function FilterInput({dentists, profile}:{dentists:GetDentists, p
             </div>
             {
                 profile?.data.role == "admin"?
-                <Link href={"/adddentist"}>
+                <Link href={"/dentist/addDentist"}>
                     <button className="bg-green-200 hover:bg-green-300 rounded-lg p-1 px-5 absolute top-0 right-1">Add</button>
                 </Link>:null
             }

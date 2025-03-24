@@ -26,7 +26,7 @@ export default async function TopMenu(){
                     session? 
                     <Link href="/api/auth/signout">
                         <div>
-                            Sing-out
+                            {(profile as UserProfile).data.name}
                         </div>
                     </Link>:
                     <Link href="/api/auth/signin">
