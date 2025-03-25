@@ -9,12 +9,12 @@ export default async function DentistDetailPage({ params }: { params: { did: str
     return (
         <main className="flex justify-center items-center text-black">
             <div className="w-[1000px] h-[500px] flex justify-center bg-white p-6 shadow-md rounded-lg mt-24 items-center">
-                <div className="w-[300px] h-[400px] bg-gray-200 rounded-md flex items-center justify-center">
+                <div className="w-[315px] h-[400px] bg-gray-200 rounded-md flex items-center justify-center">
                     <Image
                     src={dentistDetail.data.image}
                     alt="Profile"
-                    width={128}
-                    height={128}
+                    width={300}
+                    height={400}
                     className="rounded-md"
                     />
                 </div>
