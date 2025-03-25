@@ -36,7 +36,7 @@ export default async function addDentist() {
     if (!session || !session.user.token) return null
 
     const profile = await getUserProfile(session.user.token)
-    const createdAt = new Date(profile.data.createAt)
+    const createdAt = new Date(profile.data.createdAt)
 
     return (
         <main className="relative min-h-screen bg-blue-50">

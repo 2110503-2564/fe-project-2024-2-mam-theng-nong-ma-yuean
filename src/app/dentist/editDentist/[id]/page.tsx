@@ -19,7 +19,8 @@ export default async function editDentist({ params }: { params: { id: string } }
     if (!session || !session.user.token) return null;
 
     const profile = await getUserProfile(session.user.token);
-    const createdAt = new Date(profile.data.createAt);
+    const createdAt = new Date(profile.data.createdAt);
+    console.log(profile.data.createAt);
 
     const Update = async (formData: FormData) => {
         "use server";
@@ -45,7 +46,7 @@ export default async function editDentist({ params }: { params: { id: string } }
                         <div className="text-3xl font-bold mb-2 text-blue-700">{profile.data.name}</div>
                         <div className="text-base mb-1 text-gray-700">📧 {profile.data.email}</div>
                         <div className="text-base mb-1 text-gray-700">📞 {profile.data.tel}</div>
-                        <div className="text-sm text-gray-500">Register At: {createdAt.toLocaleDateString()}</div>
+                        <div className="text-sm text-gray-500">Register At: {createdAt.toLocaleString()}</div>
                     </div>
                     <form action={Update} className="bg-white p-8 rounded-xl shadow-lg w-full max-w-lg border border-blue-300 space-y-4">
                         <h2 className="text-3xl font-bold mb-4 text-center text-blue-700">Edit Dentist</h2>

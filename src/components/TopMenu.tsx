@@ -15,7 +15,7 @@ export default async function TopMenu(){
     }
     
     return(
-        <div className="h-24 bg-purple-400 fixed top-0 w-full z-30 border-b-[1px] border-b-soild border-b-gray-300 flex flex-row justify-between">
+        <div className="h-20 bg-blue-500 fixed top-0 w-full z-30 border-b-[1px] border-b-soild border-b-gray-300 flex flex-row justify-between">
             <div className='flex flex-row ml-5'>
                 <TopMenuItem title='Home' pageRef='/'/>
                 <TopMenuItem title='Booking' pageRef='/booking/'/>
