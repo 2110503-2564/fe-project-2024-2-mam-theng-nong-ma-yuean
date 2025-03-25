@@ -5,7 +5,7 @@ import deleteDentist  from '../libs/deleteDentist';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../app/api/auth/[...nextauth]/authOptions';
 
-export default async function Card({dentistName, imgSrc, role, id}:{dentistName:string, imgSrc:string, role:string|null, id:string}){
+export default async function Card({dentistName, remain , imgSrc, role, id}:{dentistName:string, remain:number , imgSrc:string, role:string|null, id:string}){
 
     const Delete = async () => {
         
@@ -26,7 +26,17 @@ export default async function Card({dentistName, imgSrc, role, id}:{dentistName:
                             className='object-cover rounded-t-lg'/>
                     </div>
                     <div className="w-full h-[30%] p-[10px] flex flex-col">
-                        {dentistName}
+                        <span className="text-lg font-semibold">{dentistName}</span>
+                        <span
+                            className={`
+                                text-sm font-medium px-2 py-1 rounded-md mt-1 w-fit
+                                ${remain < 2 ? "bg-red-100 text-red-700" :
+                                remain <= 4 ? "bg-yellow-100 text-yellow-700" :
+                                "bg-green-100 text-green-700"}
+                            `}
+                        >
+                            Remain: {remain}
+                        </span>
                     </div>
 
                 </InteractiveCard>
