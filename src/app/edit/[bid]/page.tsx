@@ -3,7 +3,6 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { getServerSession } from "next-auth";
 import getUserProfile from "@/libs/getUserProfile";
 import getDentist from "@/libs/getDentist";
-import addBooking from "@/libs/addBooking";
 import Image from "next/image";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
@@ -57,7 +56,7 @@ export default async function Booking({ params }: { params: { bid: string } }) {
             
             <p className="text-gray-800 text-xl font-semibold mt-2">Your old Booking</p>
             <p className="text-sm text-gray-600 ml-4">
-                  {new Date(booking.data.bookingDate).toDateString()}
+                  {new Date(booking.data.bookingDate,7,0,0,0).toDateString()}
                 </p>
             <div className="mt-5">
               <h3 className="text-md text-gray-600">Pick Up Date & Time</h3>
