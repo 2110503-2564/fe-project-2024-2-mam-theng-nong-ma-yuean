@@ -35,7 +35,7 @@ export default function FilterInput({dentists, profile}:{dentists:GetDentists, p
                 filter.data.map((dentist)=>{
                     return (
                     <div key={dentist.id} className="flex justify-center my-8">
-                        <Card dentistName={dentist.name} imgSrc={dentist.image} remain={dentist.bookingPerDay} role={profile? profile.data.role:null} id={dentist.id}/>
+                        <Card dentistName={dentist.name} imgSrc={dentist.image} role={profile? profile.data.role:null} id={dentist.id}/>
                     </div>
                     );
                 })
