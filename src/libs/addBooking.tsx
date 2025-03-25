@@ -1,24 +1,26 @@
-// ยังไม่ได้แก้!
-export default async function addBooking(bookingDate:string)
+"use server"
+import dayjs, { Dayjs } from "dayjs";
+export default async function addBooking(bookingDate:string, token:string, id:string, did:string)
 {
-    console.log(bookingDate);
-    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/dentists/${id}`,{
-        method:"PUT",
+    let date = new Date(bookingDate);
+    date = new Date(date.getFullYear(),date.getMonth(),date.getDate(),7,0,0,0);
+    
+    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/dentists/${did}/bookings`,{
+        method:"POST",
         headers:{
             "Content-Type":"application/json",
             authorization:`Bearer ${token}`
         },
         body:JSON.stringify({
-            "name": name,
-            "image": image,
-            "yearsOfExperience": yearsOfExperience,
-            "areaOfExpertise": areaOfExpertise,
-            "bookingPerDay": bookingPerDay
+            user:id,
+            dentist:did,
+            bookingDate: date,
+            createdAt:new Date()
         })
     })
 
     if(!response.ok){
-        throw new Error("Failed to update dentist");
+        throw new Error("Failed to add booking");
     }
     
     return await response.json();
