@@ -3,18 +3,19 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { getServerSession } from "next-auth";
 import getUserProfile from "@/libs/getUserProfile";
 import getDentist from "@/libs/getDentist";
-import addBooking from "@/libs/addBooking";
 import Image from "next/image";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import getBooking from "@/libs/getBooking";
 import updateBooking from "@/libs/updateBooking";
+import checkBooking from "@/libs/checkBooking";
+import getDentists from "@/libs/getDentists";
 
 export default async function Booking({ params }: { params: { bid: string } }) {
   const session = await getServerSession(authOptions);
   if (!session || !session.user.token) return null;
 
-  console.log(params.bid)
+  const dentists:GetDentists = await getDentists();
   const profile = await getUserProfile(session.user.token);
   const hasBooking = profile.data.booking;
   const booking = await getBooking(params.bid, session.user.token);
@@ -23,6 +24,10 @@ export default async function Booking({ params }: { params: { bid: string } }) {
   async function submit(bookingDate: string) {
       "use server";
       if (!session) return new Error("Not logged in");
+      const check:CheckBooking = await checkBooking(params.bid,bookingDate);
+      if (check.currentBooking >= check.maxBooking) {
+        return;
+      }
       await updateBooking(params.bid, session.user.token, bookingDate, dentist.data.id, profile.data.id);
       revalidateTag("bookings")
       redirect("/booking")
