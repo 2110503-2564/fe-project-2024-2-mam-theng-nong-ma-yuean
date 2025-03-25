@@ -7,11 +7,6 @@ export default function Banner(){
                     <div>Find and Book</div>
                     <div>Dentist, <div className = "inline text-blue-700">Easily</div></div>
                 </div>
-
-                <div className="mt-5 text-sm font-normal">
-                    <p>Frontend Frontend Frontend Frontend</p>
-                    <p>Frontend Frontend Frontend</p>
-                </div>
             </div>  
         </div>
     );
