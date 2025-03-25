@@ -4,20 +4,24 @@ import { getServerSession } from "next-auth";
 import getUserProfile from "@/libs/getUserProfile";
 import getDentist from "@/libs/getDentist";
 import addBooking from "@/libs/addBooking";
+import checkBooking from "@/libs/checkBooking";
 
 export default async function Booking({params}:{params:{did:string}}) {
   const session = await getServerSession(authOptions);
   if (!session || !session.user.token) return null;
 
   const profile = await getUserProfile(session.user.token);
-
-  const hasBooking = profile.data.booking;
   //const bookingDate = hasBooking ? profile.data.booking.date : null; // use ISO string for default value
   const dentist = await getDentist(params.did);
 
   async function submit(bookingDate:string){
     "use server"
     if (!session) return new Error("Not login");
+    const check:CheckBooking = await checkBooking(params.did,bookingDate);
+    if (check.currentBooking > check.maxBooking) {
+      alert("Max booking on selected date");
+      return;
+    }
     await addBooking(bookingDate,session?.user.token,session?.user._id,params.did);
   }
 
