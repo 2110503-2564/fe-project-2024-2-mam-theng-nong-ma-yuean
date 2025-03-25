@@ -3,7 +3,6 @@ import InteractiveCard from './InteractiveCard';
 import Link from 'next/link';
 
 export default function Card({dentistName, imgSrc, role, id}:{dentistName:string, imgSrc:string, role:string|null, id:string}){
-
     return (
         <div className='relative'>
             <Link href={id}>
@@ -15,7 +14,7 @@ export default function Card({dentistName, imgSrc, role, id}:{dentistName:string
                             className='object-cover rounded-t-lg'/>
                     </div>
                     <div className="w-full h-[30%] p-[10px] flex flex-col">
-                        {dentistName}
+                        <span className="text-lg font-semibold">{dentistName}</span>           
                     </div>
 
                 </InteractiveCard>
