@@ -7,11 +7,10 @@ import deleteDentist from "@/libs/deleteDentist";
 export default function DeleteButton({ id, token }: { id: string; token: string }) {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-
     const handleDelete = () => {
         if (!confirm("Are you sure you want to delete this dentist?")) return;
     
-    console.log("Delete Dentist", id);
+        console.log("Delete Dentist", id);
 
         setLoading(true);
         deleteDentist(id, token)
