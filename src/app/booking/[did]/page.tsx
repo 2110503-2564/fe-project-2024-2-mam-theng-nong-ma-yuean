@@ -7,6 +7,7 @@ import addBooking from "@/libs/addBooking";
 import Image from "next/image";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
+import checkBooking from "@/libs/checkBooking";
 
 export default async function Booking({ params }: { params: { did: string } }) {
   const session = await getServerSession(authOptions);
@@ -16,15 +17,17 @@ export default async function Booking({ params }: { params: { did: string } }) {
   const hasBooking = profile.data.booking;
   const dentist = await getDentist(params.did);
 
-  async function submit(bookingDate: string) {
-    "use server";
-    
-    
-    if (!session) return new Error("Not logged in");
-    await addBooking(bookingDate, session?.user.token, session?.user._id, params.did);
+  async function submit(bookingDate:string){
+    "use server"
+    if (!session) return new Error("Not login");
+    const check:CheckBooking = await checkBooking(params.did,bookingDate);
+    console.log(check)
+    if (check.currentBooking >= check.maxBooking) {
+      return;
+    }
+    await addBooking(bookingDate,session?.user.token,session?.user._id,params.did);
     revalidateTag("bookings")
     redirect("/booking")
-    
   }
 
   return (

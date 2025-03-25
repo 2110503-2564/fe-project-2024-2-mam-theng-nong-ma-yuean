@@ -1,13 +1,9 @@
 'use client'
 
-import dayjs from 'dayjs';
-import { DayCalendar } from '@mui/x-date-pickers/internals';
 import { DatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
-import { Dayjs } from 'dayjs';
-import getDentist from '@/libs/getDentist';
 import { useRef } from 'react';
 
 interface DateReserveProps {
@@ -38,7 +34,7 @@ export default function DateReserve({dentist, submitFunc}:{dentist:GetDentist, s
         />
       </LocalizationProvider>
       <button name="Book Venue" className="rounded-md bg-indigo-600 px-3 py-2 shadow-sm text-white"
-      onClick={()=>submitFunc(date.current)}>
+      onClick={()=>{submitFunc(date.current)}}>
           Booking
       </button>
     </div>

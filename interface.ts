@@ -40,6 +40,12 @@ interface Booking{
     createdAt:string
 }
 
+interface CheckBooking{
+    success:boolean,
+    currentBooking:number,
+    maxBooking:number
+}
+
 interface GetDentists{
     success:boolean,
     count:number,
