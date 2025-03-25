@@ -49,16 +49,6 @@ export default function DentistDetailPage({ params }: { params: { did: string } 
                 </div>
                 <div className="flex-1 ml-8">
                     <h1 className="text-2xl font-bold text-gray-900">{dentistDetail.data.name}</h1>
-                    <span
-                        className={`inline-block text-sm font-medium px-2 py-1 rounded-md mt-2
-                            ${dentistDetail.data.bookingPerDay < 2
-                                ? "bg-red-100 text-red-700"
-                                : dentistDetail.data.bookingPerDay <= 4
-                                ? "bg-yellow-100 text-yellow-700"
-                                : "bg-green-100 text-green-700"}`}
-                    >
-                        Remain : {dentistDetail.data.bookingPerDay}
-                    </span>
                     <p className="mt-4 text-gray-700">
                         <span className="font-medium">Area of expertise:</span>{" "}
                         {dentistDetail.data.areaOfExpertise}
@@ -66,12 +56,6 @@ export default function DentistDetailPage({ params }: { params: { did: string } 
                     <p className="text-gray-700">
                         <span className="font-medium">Years of experience:</span>{" "}
                         {dentistDetail.data.yearsOfExperience}
-                    </p>
-
-                    <h3 className="mt-4 font-semibold text-gray-900">Description</h3>
-                    <p className="text-gray-600">
-                        Answer the frequently asked question in a simple sentence, a longish
-                        paragraph, or even in a list.
                     </p>
                     <div className="flex justify-end mt-12">
                         <button
