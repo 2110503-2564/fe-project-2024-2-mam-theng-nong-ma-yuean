@@ -16,18 +16,17 @@ export default async function Booking({ params }: { params: { did: string } }) {
   const profile = await getUserProfile(session.user.token);
   const dentist = await getDentist(params.did);
 
-  async function submit(bookingDate:string){
-    "use server"
-    if (!session) return new Error("Not login");
-    const check:CheckBooking = await checkBooking(params.did,bookingDate);
-    console.log(check)
+  async function submit(bookingDate: string) {
+    "use server";
+    if (!session) throw new Error("Not logged in");
+
+    const check: CheckBooking = await checkBooking(params.did, bookingDate);
+    console.log(check);
+
     if (check.currentBooking >= check.maxBooking) {
-      return "Booking Full";
+      return;
     }
-    const response = await addBooking(bookingDate,session?.user.token,session?.user._id,params.did);
-    if (!response.ok) {
-      return (response as Warning).message;
-    }
+    await addBooking(bookingDate,session?.user.token,session?.user._id,params.did);
     revalidateTag("bookings")
     redirect("/booking")
   }
