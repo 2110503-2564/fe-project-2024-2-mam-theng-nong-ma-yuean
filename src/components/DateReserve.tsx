@@ -4,16 +4,17 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
-import { useRef } from 'react';
-
-interface DateReserveProps {
-  defaultDateTime?: string;
-}
+import { Suspense, useRef } from 'react';
+import { LinearProgress } from "@mui/material";
+import { useState } from "react";
 
 export default function DateReserve({dentist, submitFunc}:{dentist:GetDentist, submitFunc:Function}) {
   const date = useRef<string|null>();
+  const [warning, setWarning] =useState<string>();
+
   return (
-    <div className="bg-slate-100 rounded-lg space-x-5 space-y-2 w-fit px-10 py-5 flex flex-col justify-center">
+    <div>
+          <div className="bg-slate-100 rounded-lg space-x-5 space-y-2 w-fit px-10 py-5 flex flex-col justify-center">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
           className="bg-white"
@@ -34,9 +35,20 @@ export default function DateReserve({dentist, submitFunc}:{dentist:GetDentist, s
         />
       </LocalizationProvider>
       <button name="Book Venue" className="rounded-md bg-indigo-600 px-3 py-2 shadow-sm text-white"
-      onClick={()=>{submitFunc(date.current)}}>
+      onClick={()=>{setWarning(submitFunc(date.current))}}>
           Booking
       </button>
+
+
+      </div>  
+      {warning?    
+      <div className="absolute z-50 object-center top-[80px] left-2 bg-red-500 m-2 px-10 p-2 text-white text-center rounded">
+        <Suspense fallback={<p>Loading...<LinearProgress/></p>}>
+            <div className="">{warning}</div>
+        </Suspense>
+      </div>:""
+      }
     </div>
+
   );
 }

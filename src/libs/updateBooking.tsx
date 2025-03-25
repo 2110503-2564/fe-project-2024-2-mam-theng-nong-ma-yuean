@@ -1,28 +1,24 @@
-export default async function updateBooking
-
-// ยังไม่ได้แก้!
-(name:string, image:string, yearsOfExperience:number, areaOfExpertise:string, bookingPerDay:number, id:string, token:string)
-{
-    console.log(name, image, yearsOfExperience, areaOfExpertise, bookingPerDay, id);
-    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/dentists/${id}`,{
+export default async function (id:string, token:string, bookingDate: string, dentist: string, user:string) {
+    let date = new Date(bookingDate);
+    date = new Date(date.getFullYear(),date.getMonth(),date.getDate(),7,0,0,0);
+    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/bookings/${id}`,{
         method:"PUT",
         headers:{
             "Content-Type":"application/json",
             authorization:`Bearer ${token}`
         },
         body:JSON.stringify({
-            "name": name,
-            "image": image,
-            "yearsOfExperience": yearsOfExperience,
-            "areaOfExpertise": areaOfExpertise,
-            "bookingPerDay": bookingPerDay
+            user : user,
+            dentist : dentist,
+            bookingDate: date,
+            createdAt:new Date()
+    
         })
     })
-
+    
     if(!response.ok){
-        throw new Error("Failed to update dentist");
+        throw new Error("Failed to update booking");
     }
     
     return await response.json();
-    
 }

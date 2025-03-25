@@ -17,16 +17,12 @@ export default async function addBooking(bookingDate:string, token:string, id:st
             bookingDate: date,
             createdAt: new Date()
         })
-    });
-    
-    const responseData = await response.json();
-    console.log("Response Data:", responseData);
-    
-    if (!response.ok) {
-        throw new Error(`Failed to add booking: ${responseData.message || response.statusText}`);
+    })
+
+    if(!response.ok){
+        throw new Error("Failed to add booking");
     }
     
-    return responseData;
-
+    return await response.json();
     
 }

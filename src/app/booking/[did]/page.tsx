@@ -14,7 +14,6 @@ export default async function Booking({ params }: { params: { did: string } }) {
   if (!session || !session.user.token) return null;
 
   const profile = await getUserProfile(session.user.token);
-  const hasBooking = profile.data.booking;
   const dentist = await getDentist(params.did);
 
   async function submit(bookingDate: string) {
@@ -25,23 +24,12 @@ export default async function Booking({ params }: { params: { did: string } }) {
     console.log(check);
 
     if (check.currentBooking >= check.maxBooking) {
-        console.error("User has reached the maximum number of bookings.");
-        return;
+      return;
     }
-
-    try {
-      await addBooking(bookingDate, session.user.token, session.user._id, params.did);
-      revalidateTag("bookings");
-      redirect("/booking");
-  } catch (error) {
-      if (error instanceof Error) {
-          console.error("Booking failed:", error.message);
-      } else {
-          console.error("Booking failed with unknown error:", error);
-      }
+    await addBooking(bookingDate,session?.user.token,session?.user._id,params.did);
+    revalidateTag("bookings")
+    redirect("/booking")
   }
-}
-
 
   return (
     <main className="w-[100%] flex flex-col justify-center my-16 items-center">
@@ -67,7 +55,7 @@ export default async function Booking({ params }: { params: { did: string } }) {
           {/* Date Selection */}
           <div className="mt-5">
             <h3 className="text-md text-gray-600">Pick Up Date & Time</h3>
-            <DateReserve dentist={dentist} submitFunc={submit} />
+            <DateReserve dentist={dentist} submitFunc={submit}/>
           </div>
         </div>
       </div>
