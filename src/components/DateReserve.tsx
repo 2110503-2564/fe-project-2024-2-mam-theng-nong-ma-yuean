@@ -34,7 +34,7 @@ export default function DateReserve({dentist, submitFunc}:{dentist:GetDentist, s
         />
       </LocalizationProvider>
       <button name="Book Venue" className="rounded-md bg-indigo-600 px-3 py-2 shadow-sm text-white"
-      onClick={()=>{alert("test");submitFunc(date.current)}}>
+      onClick={()=>{submitFunc(date.current)}}>
           Booking
       </button>
     </div>

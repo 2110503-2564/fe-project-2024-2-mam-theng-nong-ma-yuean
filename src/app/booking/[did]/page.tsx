@@ -18,8 +18,8 @@ export default async function Booking({params}:{params:{did:string}}) {
     "use server"
     if (!session) return new Error("Not login");
     const check:CheckBooking = await checkBooking(params.did,bookingDate);
-    if (check.currentBooking > check.maxBooking) {
-      alert("Max booking on selected date");
+    console.log(check)
+    if (check.currentBooking >= check.maxBooking) {
       return;
     }
     await addBooking(bookingDate,session?.user.token,session?.user._id,params.did);
