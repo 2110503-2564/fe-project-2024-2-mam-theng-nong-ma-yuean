@@ -40,6 +40,11 @@ interface Booking{
     createdAt:string
 }
 
+interface Warning{
+    success:boolean,
+    message:string
+}
+
 interface CheckBooking{
     success:boolean,
     currentBooking:number,
