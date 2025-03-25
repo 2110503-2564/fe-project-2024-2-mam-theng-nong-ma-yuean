@@ -13,7 +13,7 @@ export default async function DentistPanel() {
     if(session){
         profile = await getUserProfile(session.user.token);    
     }
-
+    
     // Filter
     return(
         <div className="h-[50%] mt-[75px] mx-10">
