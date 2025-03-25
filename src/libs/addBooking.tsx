@@ -18,10 +18,6 @@ export default async function addBooking(bookingDate:string, token:string, id:st
             createdAt:new Date()
         })
     })
-
-    if(!response.ok){
-        throw new Error("Failed to add booking");
-    }
     
     return await response.json();
     

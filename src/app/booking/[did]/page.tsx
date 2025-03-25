@@ -14,7 +14,6 @@ export default async function Booking({ params }: { params: { did: string } }) {
   if (!session || !session.user.token) return null;
 
   const profile = await getUserProfile(session.user.token);
-  const hasBooking = profile.data.booking;
   const dentist = await getDentist(params.did);
 
   async function submit(bookingDate:string){
@@ -23,9 +22,12 @@ export default async function Booking({ params }: { params: { did: string } }) {
     const check:CheckBooking = await checkBooking(params.did,bookingDate);
     console.log(check)
     if (check.currentBooking >= check.maxBooking) {
-      return;
+      return "Booking Full";
     }
-    await addBooking(bookingDate,session?.user.token,session?.user._id,params.did);
+    const response = await addBooking(bookingDate,session?.user.token,session?.user._id,params.did);
+    if (!response.ok) {
+      return (response as Warning).message;
+    }
     revalidateTag("bookings")
     redirect("/booking")
   }
@@ -54,7 +56,7 @@ export default async function Booking({ params }: { params: { did: string } }) {
           {/* Date Selection */}
           <div className="mt-5">
             <h3 className="text-md text-gray-600">Pick Up Date & Time</h3>
-            <DateReserve dentist={dentist} submitFunc={submit} />
+            <DateReserve dentist={dentist} submitFunc={submit}/>
           </div>
         </div>
       </div>

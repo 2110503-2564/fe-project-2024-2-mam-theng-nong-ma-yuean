@@ -7,8 +7,8 @@ import Image from "next/image";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import getBooking from "@/libs/getBooking";
-import updateBooking from "@/libs/updateBooking";
 import checkBooking from "@/libs/checkBooking";
+import updateBooking from "@/libs/updateBooking";
 import getDentists from "@/libs/getDentists";
 
 export default async function Booking({ params }: { params: { bid: string } }) {
@@ -17,16 +17,17 @@ export default async function Booking({ params }: { params: { bid: string } }) {
 
   const dentists:GetDentists = await getDentists();
   const profile = await getUserProfile(session.user.token);
-  const hasBooking = profile.data.booking;
   const booking = await getBooking(params.bid, session.user.token);
   const dentist = await getDentist(booking.data.dentist.id)
 
   async function submit(bookingDate: string) {
       "use server";
       if (!session) return new Error("Not logged in");
-      const check:CheckBooking = await checkBooking(params.bid,bookingDate);
+
+      const check:CheckBooking = await checkBooking(booking.data.dentist.id,bookingDate);
+      console.log(check)
       if (check.currentBooking >= check.maxBooking) {
-        return;
+        return "Booking Full";
       }
       await updateBooking(params.bid, session.user.token, bookingDate, dentist.data.id, profile.data.id);
       revalidateTag("bookings")
@@ -55,12 +56,7 @@ export default async function Booking({ params }: { params: { bid: string } }) {
             
             <p className="text-gray-800 text-xl font-semibold mt-2">Your old Booking</p>
             <p className="text-sm text-gray-600 ml-4">
-                  {new Date(booking.data.bookingDate).toLocaleString("en-EN", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                    hour12: false,
-                  })}
+                  {new Date(booking.data.bookingDate).toDateString()}
                 </p>
             <div className="mt-5">
               <h3 className="text-md text-gray-600">Pick Up Date & Time</h3>
