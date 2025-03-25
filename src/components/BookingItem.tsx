@@ -49,6 +49,9 @@ export default async function Card({dentistName, imgSrc, bookingDate, id ,token,
               </div>
               <div>
                 <button className="bg-red-400 hover:bg-red-600 text-white px-4 py-2 rounded-lg " onClick={ Delete }>Cancel</button>
+                <Link href= { `/edit/${id}` }>
+                  <button className='bg-yellow-400 hover:bg-yelow-600'>Edit</button>
+                </Link>
               </div>
         </div>
     );
