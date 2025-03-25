@@ -1,4 +1,6 @@
 export default async function (id:string, token:string, bookingDate: string, dentist: string, user:string) {
+    let date = new Date(bookingDate);
+    date = new Date(date.getFullYear(),date.getMonth(),date.getDate(),7,0,0,0);
     const response = await fetch(`${process.env.BACKEND_URL}/api/v1/bookings/${id}`,{
         method:"PUT",
         headers:{
@@ -8,7 +10,7 @@ export default async function (id:string, token:string, bookingDate: string, den
         body:JSON.stringify({
             user : user,
             dentist : dentist,
-            bookingDate: bookingDate,
+            bookingDate: date,
             createdAt:new Date()
     
         })

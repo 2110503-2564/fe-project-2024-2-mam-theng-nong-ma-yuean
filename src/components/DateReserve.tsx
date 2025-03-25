@@ -10,7 +10,7 @@ import { useState } from "react";
 
 export default function DateReserve({dentist, submitFunc}:{dentist:GetDentist, submitFunc:Function}) {
   const date = useRef<string|null>();
-  const [warning, setWarning] =useState<string>()
+  const [warning, setWarning] =useState<string>();
 
   return (
     <div>
