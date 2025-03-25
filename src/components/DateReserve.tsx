@@ -23,7 +23,7 @@ export default function DateReserve({dentist, submitFunc}:{dentist:GetDentist, s
               
               let date = new Date(props.day.year(),props.day.month(),props.day.date(),7,0,0,0);
               let found =0;
-              dentist.data.bookings.forEach((booking)=>{              
+              dentist.data.bookings?.forEach((booking)=>{              
                 if ((new Date(booking.bookingDate)).toISOString().toString() == date.toISOString().toString()) found++;
               });
               return (<PickersDay {...props} className={

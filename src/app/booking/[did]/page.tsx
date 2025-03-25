@@ -17,18 +17,31 @@ export default async function Booking({ params }: { params: { did: string } }) {
   const hasBooking = profile.data.booking;
   const dentist = await getDentist(params.did);
 
-  async function submit(bookingDate:string){
-    "use server"
-    if (!session) return new Error("Not login");
-    const check:CheckBooking = await checkBooking(params.did,bookingDate);
-    console.log(check)
+  async function submit(bookingDate: string) {
+    "use server";
+    if (!session) throw new Error("Not logged in");
+
+    const check: CheckBooking = await checkBooking(params.did, bookingDate);
+    console.log(check);
+
     if (check.currentBooking >= check.maxBooking) {
-      return;
+        console.error("User has reached the maximum number of bookings.");
+        return;
     }
-    await addBooking(bookingDate,session?.user.token,session?.user._id,params.did);
-    revalidateTag("bookings")
-    redirect("/booking")
+
+    try {
+      await addBooking(bookingDate, session.user.token, session.user._id, params.did);
+      revalidateTag("bookings");
+      redirect("/booking");
+  } catch (error) {
+      if (error instanceof Error) {
+          console.error("Booking failed:", error.message);
+      } else {
+          console.error("Booking failed with unknown error:", error);
+      }
   }
+}
+
 
   return (
     <main className="w-[100%] flex flex-col justify-center my-16 items-center">
